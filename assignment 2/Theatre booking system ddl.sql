@@ -3,7 +3,7 @@ create database tbs_assignment;
 
 \c tbs_assignment
 
--- Any form of ID, please enter in an 6 digit AlphaNumeric format Eg: AHF658
+-- Any form of ID will be entered in an 6 digit AlphaNumeric format Eg: AHF658
 
 CREATE TABLE cashier
 (
