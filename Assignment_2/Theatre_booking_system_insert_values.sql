@@ -18,10 +18,10 @@ INSERT into customer values ('Alex','HNFOSA', 'alex@mymail.com',7267875614);
 INSERT into customer values ('Lucius','DUJD87', 'lkurten0@studiopress.com', 9598072503);
 INSERT into customer values ('Grigs','KIFH76', 'rgrigs1@statcounter.com', 1789448756);
 INSERT into customer values ('Mennear','DUNS87', 'gmennear2@lulu.com', 9009039174);
-INSERT into customer values ('Recke','OFKDU7', '	brecke3@fema.gov', 9036281877);
+INSERT into customer values ('Recke','OFKDU7', 'brecke3@fema.gov', 9036281877);
 INSERT into customer values ('Merrill','OJDUJ8', 'gmerrill4@mac.com', 5416709934);
 INSERT into customer values ('Lehrian','IHDY79', 'slehrian5@amazon.co.uk', 4473498204);
-INSERT into customer values ('Alton','OJJYD6', '	jalton6@scribd.com', 6222544526);
+INSERT into customer values ('Alton','OJJYD6', 'jalton6@scribd.com', 6222544526);
 INSERT into customer values ('Munford','IJD7UJ', 'amunford7@nature.com', 4153357078);
 INSERT into customer values ('Dowson','HDUKS8', 'bdowson8@howstuffworks.com', 3516401471);
 
