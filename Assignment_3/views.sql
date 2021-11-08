@@ -2,7 +2,7 @@
 
 --create multiple views of the database
 
-drop view IF EXISTS *;
+-- drop view IF EXISTS *;
 --customer view
 create view customer_view as select cust_name, email_id, phone_no from customer;
 -- select * from customer_view;
