@@ -1,0 +1,20 @@
+Customer queries:
+#select customer who have availed 10% off of their ticket
+#select the customer who has watched a movie directed by some director
+#select the maximum amount paid for a ticket and give details who paid it and for what movie
+
+Cashier queries:
+#select the cashier who has sold the ticket to a particular person 
+#select the cashier who has sold the ticket for a particular movie
+#check the discount offered on the ticket of a particular customer
+ 
+Actor queries:
+#select the movie in which the actor has acted in
+#select the actors acting in a given movie
+
+Theatre queries
+#give number of people who have booked a ticket for a particular movie
+#select the number of seats available in the theatre
+
+ 
+
