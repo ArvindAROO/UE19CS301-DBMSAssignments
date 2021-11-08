@@ -1,5 +1,6 @@
 \c tbs_assignment
 
+--Some more sorta simple queries
 -- SELECT * from customer, booking where (customer.cust_id = booking.cust_id);
 
 -- SELECT seat_no, final_price, screen_no from ticket, shows where ((ticket.show_id = shows.show_id) and (shows.screen_no = 3));
@@ -19,7 +20,7 @@ select * from movie where movie_id in (select movie_id from shows as S inner joi
 
 -- Cashier queries:
 -- select the cashier who has sold the ticket to a particular person 
--- select cashier_name from cashier as C,sale as S where C.cashier_id=S.cashier_id and ticket_no in (select ticket_no from ticket as T where T.cust_id in (select cust_id from customer where cust_name='Alex'));
+select cashier_name from cashier as C,sale as S where C.cashier_id=S.cashier_id and ticket_no in (select ticket_no from ticket as T where T.cust_id in (select cust_id from customer where cust_name='Alex'));
 
 -- select the cashier who has sold the ticket for a particular movie
 select C.cashier_name from cashier as C where cashier_id in(select S.cashier_id from sale as S where S.ticket_no in (select ticket_no from ticket as T where T.show_id in ((select show_id from movie as M ,shows as S where movie_name='Fame' and M.movie_id=S.movie_id) union (select show_id from movie as M ,shows as S where movie_name='Flicker' and M.movie_id=S.movie_id))));
@@ -30,7 +31,6 @@ select discount from offer as O inner join (select offer_id from ticket as T inn
 -- Actor queries:
 -- select the actors acting in a given movie
 select actors.Actor_name, movie.movie_name from actors,movie where actors.movie_id=movie.movie_id and movie.movie_name = 'Do You Wanna Know a Secret?';
-
 
 --Theatre queries:
 --return the theatre details that runs a movie directed by some specific director
