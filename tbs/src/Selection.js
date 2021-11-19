@@ -6,11 +6,12 @@ function Selection(){
         <div>
             <h1>Select Type of User</h1>
             <br/>
-            <Link to="/user">Customer login</Link>
-            <br/>
+            <Link to="/user">Customer</Link>
+            {/* <br/>
             <Link to="/cashier">Cashier login</Link>
+            */}
             <br/>
-            <Link to="/theatre">Theatre login</Link>
+            <Link to="/theatre">Theatre</Link>
         </div>
     );
 }
