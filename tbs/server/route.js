@@ -123,27 +123,100 @@ router.post("/signup/theatre",async(req,res)=>{
     }
 })
 
-router.get("dashboard/user/ticketDetails",async(req,res)=>{
+//route for dashboard for user
+router.get("/dashboard/movies",async(req,res)=>{
     try{
-        const {name}=req.query.name;
-        const user=await pool.query("SELECT * FROM customer NATURAL JOIN ticket where cust_name=$1;",[name]);
-        if(!user){
-            alert("No ticket booked");
-            res.send("0");
-        }
-
-        const movie_name=await pool.query("SELECT movie_name from movie NATURAL JOIN shows WHERE show_id IN (SELECT show_id FROM customer NATURAL JOIN ticket WHERE cust_name=$1);",[name]);
-        
-
+        const result=await pool.query("select theatre_name, movie_name,Q.release_date,language from theatre natural join (select * from movie natural join shows) as Q;");
         if(!result){
             res.send('0');
         }
-        else{
+        else{   
             res.json(result);
         }
     }catch(e){
-        res.send('0')
+        res.send("0");
+        console.log(e);
+    }
+});
+
+//route for checking tickets booked by user
+router.get("/dashboard/booked/:name",async(req,res)=>{
+    try{
+        const {name}=req.params;
+
+        const user=await pool.query("SELECT theatre_name,movie_name,show_date,screen_no,ticket_no,seat_no,final_price FROM movie NATURAL JOIN (theatre NATURAL JOIN (SELECT * FROM shows NATURAL JOIN (SELECT * FROM customer NATURAL JOIN ticket) AS Q) AS S) as E WHERE cust_name=$1;",[name]);
+        if(!user){
+            alert("No ticket booked");
+            res.send("No ticket booked");
+        }
+        else{
+            res.send(user);
+        }
+    }catch(e){
+        res.send('outside')
     }
 })
+
+//route for movies run by a theatre
+router.get("/dashboard/moviesRun/:theatre",async(req,res)=>{
+    try{
+        const {theatre}=req.params;
+        const result=await pool.query("SELECT movie_name,Q.release_date,language,start_time,end_time,screen_no from theatre natural join (select * from movie natural join shows) as Q where theatre_name=$1;",[theatre]);
+        if(!result){
+            res.send('0');
+        }
+        else{   
+            res.json(result);
+        }
+    }catch(e){
+        res.send("0");
+        console.log(e);
+    }
+});
+
+//route for adding new movie by theatre
+router.post("/dashboard/addmovie",async(req,res)=>{
+    try{
+        const {name,director,release_date}=req.body;
+        id=Math.random().toString(36).replace('0.', '').substr(0, 6).toUpperCase();
+        const result=await pool.query("INSERT INTO movie (movie_id , movie_name , director ,release_date) VALUES ($1,$2,$3,$4) returning *",
+        [id,name,director,release_date]);
+        if(!result){
+            res.send('Movie cant be added');
+        }
+        else{
+            res.send(`Movie added ${result.rows}`);
+        }
+    }
+    catch(e){
+        res.send("0");
+        console.log(e);
+    }
+})
+
+//route for adding new show by theatre
+router.post("/dashboard/addshow",async(req,res)=>{
+    try{
+        const {movie_name,show_date,start_time,end_time,theatre_name,language,screen_no}=req.body;
+
+        const movie_id=await pool.query("SELECT movie_id FROM movie WHERE movie_name=$1",[movie_name]) 
+        const theatre_id=await pool.query("SELECT theatre_id FROM theatre WHERE theatre_name=$1",[theatre_name]) 
+        id=Math.random().toString(36).replace('0.', '').substr(0, 6).toUpperCase();
+
+        const result=await pool.query("INSERT INTO shows (start_time, end_time, show_id, language,screen_no, show_date,movie_id,theatre_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) returning *",
+        [start_time,end_time,id,language,screen_no,show_date,movie_id,theatre_id]);
+        if(!result){
+            res.send('Show cant be added');
+        }
+        else{
+            res.send(`Show added ${result.rows}`);
+        }
+    }
+    catch(e){
+        res.send("0");
+        console.log(e);
+    }
+})
+
 
 module.exports=router;
