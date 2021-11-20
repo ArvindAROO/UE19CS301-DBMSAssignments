@@ -148,7 +148,6 @@ router.get("/dashboard/booked/:name",async(req,res)=>{
 
         const user=await pool.query("SELECT theatre_name,movie_name,show_date,screen_no,ticket_no,seat_no,final_price FROM movie NATURAL JOIN (theatre NATURAL JOIN (SELECT * FROM shows NATURAL JOIN (SELECT * FROM customer NATURAL JOIN ticket) AS Q) AS S) as E WHERE cust_name=$1;",[name]);
         if(user.rows.length==0){
-            alert("No ticket booked");
             res.send("0");
         }
         else{
@@ -164,12 +163,13 @@ router.get("/dashboard/booked/:name",async(req,res)=>{
 router.get("/dashboard/moviesRun/:theatre",async(req,res)=>{
     try{
         const {theatre}=req.params;
+        
         const result=await pool.query("SELECT movie_name,Q.release_date,language,start_time,end_time,screen_no from theatre natural join (select * from movie natural join shows) as Q where theatre_name=$1;",[theatre]);
-        if(result.row.length==0){
+        if(result.rows.length==0){
             res.send('0');
         }
         else{   
-            res.json(result);
+            res.send(result.rows);
         }
     }catch(e){
         res.send("0");
@@ -180,12 +180,19 @@ router.get("/dashboard/moviesRun/:theatre",async(req,res)=>{
 //route for adding new movie by theatre
 router.post("/dashboard/addmovie",async(req,res)=>{
     try{
-        const {name,director,release_date}=req.body;
+        const {name,director,release_date,actor,age,gender}=req.body;
         id=Math.random().toString(36).replace('0.', '').substr(0, 6).toUpperCase();
         const result=await pool.query("INSERT INTO movie (movie_id , movie_name , director ,release_date) VALUES ($1,$2,$3,$4) returning *",
         [id,name,director,release_date]);
-        if(result.row.length==0){
-            res.send('Movie cant be added');
+        const result1=await pool.query("INSERT INTO actors (Actor_name,Age,Sex,movie_id) VALUES ($1,$2,$3,$4) returning *",
+        [actor,age,gender,id]);
+        if(result.rows.length==0){
+            console.log('Movie cant be added')
+            res.send('0');
+        }
+        else if(result1.rows.length==0){
+            console.log('Actor cannot be added')
+            res.send('0');
         }
         else{
             res.send(`Movie added ${result.rows}`);
@@ -201,14 +208,14 @@ router.post("/dashboard/addmovie",async(req,res)=>{
 router.post("/dashboard/addshow",async(req,res)=>{
     try{
         const {movie_name,show_date,start_time,end_time,theatre_name,language,screen_no}=req.body;
-
         const movie_id=await pool.query("SELECT movie_id FROM movie WHERE movie_name=$1",[movie_name]) 
         const theatre_id=await pool.query("SELECT theatre_id FROM theatre WHERE theatre_name=$1",[theatre_name]) 
+        console.log(movie_id.rows[0].movie_id,theatre_id.rows[0].theatre_id)
         id=Math.random().toString(36).replace('0.', '').substr(0, 6).toUpperCase();
 
         const result=await pool.query("INSERT INTO shows (start_time, end_time, show_id, language,screen_no, show_date,movie_id,theatre_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) returning *",
-        [start_time,end_time,id,language,screen_no,show_date,movie_id,theatre_id]);
-        if(result.row.length==0){
+        [start_time,end_time,id,language,screen_no,show_date,movie_id.rows[0].movie_id,theatre_id.rows[0].theatre_id]);
+        if(result.rows.length==0){
             res.send('Show cant be added');
         }
         else{

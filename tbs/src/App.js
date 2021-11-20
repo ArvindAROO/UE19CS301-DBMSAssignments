@@ -10,8 +10,10 @@ import SignTheatre from "./TheatreSign"
 import SignUser from "./UserSign";
 
 import UserDash from "./UserDash";
+import TheatreDash from "./TheatreDash";
 
-
+import AddMovie from "./AddMovie";
+import AddShow from "./AddShow";
 
 class App extends React.Component {
   render() {
@@ -28,6 +30,9 @@ class App extends React.Component {
 
         <Route path="/theatre" component={Theatre} />
         <Route path="/signup/theatre" component={SignTheatre} />
+        <Route path='/dashboard/theatre' component={TheatreDash}/>
+        <Route path='/addMovie' component={AddMovie}/>
+        <Route path='/addShow' component={AddShow}/>
       </Router>
     );
   }
