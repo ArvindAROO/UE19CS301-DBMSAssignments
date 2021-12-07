@@ -26,10 +26,10 @@ function AddShow(){
             screen_no:screen_no
         }
         console.log(user_data);
-        axios.post("http://localhost:8000/dashboard/addshow",user_data)
+        axios.post("http://localhost:3000/dashboard/addshow",user_data)
         .then((resp)=>{
-            if(resp.data=="0"){
-                alert("Adding movie was unsuccessfull try again");
+            if(resp.data==="0"){
+                alert("Adding movie was unsuccessful try again");
             }
             else if(resp.data){
                 alert("Show added successfully");

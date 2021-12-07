@@ -21,7 +21,7 @@ function User(){
 
         axios.post("http://localhost:8000/theatre",user_data)
         .then((resp)=>{
-            if(resp.data=="0"){
+            if(resp.data==="0"){
                 alert("Login was unsuccessfull try again");
             }
             else if(resp.data){
