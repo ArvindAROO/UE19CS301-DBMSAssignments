@@ -9,7 +9,7 @@ function TheatreDash(){
 
     const getMovieData=()=>{
         setShowMovie(!isShowMovie);
-        axios.get("http://localhost:8000/dashboard/moviesRun/"+encodeURI(username))
+        axios.get("http://localhost:3000/dashboard/moviesRun/"+encodeURI(username))
         .then((resp)=>{
             setMovies(resp.data);
             console.log(movies);
@@ -26,7 +26,7 @@ function TheatreDash(){
             <ul>
             {isShowMovie && movies.map((data)=>{
                 return(
-                    <li>{"movie: "+data.movie_name+" || "+ "release date: "+data.release_date+" || "+ "screen: "+data.screen_no+" || "+ "start time: "+data.start_time+" || "+ "end time: "+data.end_time+" || "+"language: "+data.language}</li>
+                    <li>{"movie: "+data.movie_name+" || release date: "+data.release_date+" || screen: "+data.screen_no+" || start time: "+data.start_time+" || end time: "+data.end_time+" || language: "+data.language}</li>
                 )
             })}
             </ul>
