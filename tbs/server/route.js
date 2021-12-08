@@ -72,6 +72,8 @@ router.post("/signup/user",async(req,res)=>{
         let id=Math.random().toString(36).replace('0.', '').substr(0, 6).toUpperCase();
         const newUser= await pool.query("INSERT INTO customer (cust_name,cust_id,email_id,phone_no) VALUES ($1,$2,$3,$4) returning *",
         [name.toLowerCase(),id,email.toLowerCase(),phone]);
+        console.log(newUser.rows[0]);
+        console.log("In signUp ")
         if(newUser.rows.length===0){
             res.send('user cant be created');
         }

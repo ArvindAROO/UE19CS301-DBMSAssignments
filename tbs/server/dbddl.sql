@@ -39,7 +39,7 @@ CREATE TABLE actors
   Sex CHAR(1) NOT NULL,
   movie_ID VARCHAR(6) NOT NULL,
   PRIMARY KEY (Actor_name, movie_ID),
-  FOREIGN KEY (movie_ID) REFERENCES movie(movie_ID)
+  FOREIGN KEY (movie_ID) REFERENCES movie(movie_ID) on update cascade on delete cascade 
 );
 
 CREATE TABLE offer
@@ -60,8 +60,8 @@ CREATE TABLE shows
   movie_ID VARCHAR(6) NOT NULL,
   theatre_ID VARCHAR(6) NOT NULL,
   PRIMARY KEY (show_ID),
-  FOREIGN KEY (movie_ID) REFERENCES movie(movie_ID),
-  FOREIGN KEY (theatre_ID) REFERENCES theatre(theatre_ID)
+  FOREIGN KEY (movie_ID) REFERENCES movie(movie_ID) on update cascade on delete cascade,
+  FOREIGN KEY (theatre_ID) REFERENCES theatre(theatre_ID) on update cascade on delete cascade
 );
 
 CREATE TABLE ticket
@@ -83,8 +83,8 @@ CREATE TABLE sale
 (
   cashier_ID VARCHAR(6) NOT NULL,
   ticket_no VARCHAR(6) NOT NULL,
-  FOREIGN KEY (cashier_ID) REFERENCES cashier(cashier_ID),
-  FOREIGN KEY (ticket_no) REFERENCES ticket(ticket_no),
+  FOREIGN KEY (cashier_ID) REFERENCES cashier(cashier_ID) on update cascade on delete cascade,
+  FOREIGN KEY (ticket_no) REFERENCES ticket(ticket_no) on update cascade on delete cascade,
   PRIMARY KEY (cashier_ID, ticket_no)
 );
 
@@ -93,8 +93,8 @@ CREATE TABLE booking
   booking_date VARCHAR(10) NOT NULL,
   cust_ID VARCHAR(6) NOT NULL,
   ticket_no VARCHAR(6) NOT NULL,
-  FOREIGN KEY (cust_ID) REFERENCES customer(cust_ID),
-  FOREIGN KEY (ticket_no) REFERENCES ticket(ticket_no),
+  FOREIGN KEY (cust_ID) REFERENCES customer(cust_ID) on update cascade on delete cascade,
+  FOREIGN KEY (ticket_no) REFERENCES ticket(ticket_no) on update cascade on delete cascade,
   PRIMARY KEY (cust_ID, ticket_no)
 );
 
