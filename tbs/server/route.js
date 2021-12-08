@@ -115,6 +115,8 @@ router.post("/signup/theatre",async(req,res)=>{
         let id=Math.random().toString(36).replace('0.', '').substr(0, 6).toUpperCase();
         const newUser = await pool.query("INSERT INTO theatre (theatre_id,theatre_name,theatre_address) VALUES ($1,$2,$3) returning *",
         [id,name.toLowerCase(),address.toLowerCase()]);
+        console.log(newUser.rows[0]);
+        console.log("In signUp ")
         if(newUser.rows.length===0){
             res.send("Theatre cant be created");
         }
@@ -148,7 +150,9 @@ router.get("/dashboard/booked/:name",async(req,res)=>{
     try{
         const {name}=req.params;
 
+        //have to fix this query
         const user=await pool.query("SELECT theatre_name,movie_name,show_date,screen_no,ticket_no,seat_no,final_price FROM movie NATURAL JOIN (theatre NATURAL JOIN (SELECT * FROM shows NATURAL JOIN (SELECT * FROM customer NATURAL JOIN ticket) AS Q) AS S) as E WHERE cust_name=$1;",[name]);
+        console.log(user.rows[0]);
         if(user.rows.length===0){
             res.send("0");
         }
@@ -165,8 +169,9 @@ router.get("/dashboard/booked/:name",async(req,res)=>{
 router.get("/dashboard/moviesRun/:theatre",async(req,res)=>{
     try{
         const {theatre}=req.params;
-        
+        console.log(theatre);
         const result=await pool.query("SELECT movie_name,Q.release_date,language,start_time,end_time,screen_no from theatre natural join (select * from movie natural join shows) as Q where theatre_name=$1;",[theatre]);
+        console.log(result.rows[0]);
         if(result.rows.length===0){
             res.send('0');
         }
@@ -188,6 +193,10 @@ router.post("/dashboard/addmovie",async(req,res)=>{
         [id,name,director,release_date]);
         const result1=await pool.query("INSERT INTO actors (Actor_name,Age,Sex,movie_id) VALUES ($1,$2,$3,$4) returning *",
         [actor,age,gender,id]);
+        
+        console.log(result.rows[0])
+        console.log("in add movie")
+        
         if(result.rows.length===0){
             console.log('Movie cant be added')
             res.send('0');
@@ -217,6 +226,10 @@ router.post("/dashboard/addshow",async(req,res)=>{
 
         const result=await pool.query("INSERT INTO shows (start_time, end_time, show_id, language,screen_no, show_date,movie_id,theatre_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) returning *",
         [start_time,end_time,id,language,screen_no,show_date,movie_id.rows[0].movie_id,theatre_id.rows[0].theatre_id]);
+        
+        console.log(result.rows[0])
+        console.log("in add show")
+
         if(result.rows.length===0){
             res.send('Show cant be added');
         }

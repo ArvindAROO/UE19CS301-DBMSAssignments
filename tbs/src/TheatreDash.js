@@ -9,7 +9,7 @@ function TheatreDash(){
 
     const getMovieData=()=>{
         setShowMovie(!isShowMovie);
-        axios.get("http://localhost:3000/dashboard/moviesRun/"+encodeURI(username))
+        axios.get("http://localhost:8000/dashboard/moviesRun/"+encodeURI(username))
         .then((resp)=>{
             setMovies(resp.data);
             console.log(movies);

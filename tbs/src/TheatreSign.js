@@ -5,6 +5,7 @@ import axios from 'axios';
 const SignTheatre=()=>{
     const [name, setName] = useState("");
     const [password, setPass] = useState("");
+    const [address, setAddress] = useState("");
     const history=useHistory();
 
     function handleSubmit(e){
@@ -12,6 +13,7 @@ const SignTheatre=()=>{
 
         let user_data={
             name: name,
+            address: address,
             password:password
         }
 
@@ -35,6 +37,8 @@ const SignTheatre=()=>{
             <form onSubmit={handleSubmit}>
                 <label>Enter your name:<input type="text" value={name}
                                         onChange={(e) => setName(e.target.value)}/></label><br/>
+                <label>Enter address:<input input type="text" value={address}
+                                        onChange={(e) => setAddress(e.target.value)}/></label><br/>          
                 <label>Enter password:<input type="password" value={password}
                                         onChange={(e) => setPass(e.target.value)}/></label><br/>
                 <input type="submit" />

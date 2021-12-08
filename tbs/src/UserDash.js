@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import axios from 'axios'
 
 function UserDash(){
-    const [bookings, setBookings] = useState([]);
+    const [bookings, setBookings] = useState(['none']);
     const [isShowBooking, setShowBooking] = useState(false);
     const [movies,setMovies] = useState([]);
     const [isShowMovies,setShowMovies] = useState(false);
@@ -13,6 +13,9 @@ function UserDash(){
         setShowBooking(!isShowBooking);
         axios.get("http://localhost:8000/dashboard/booked/"+username)
         .then((resp)=>{
+            if(resp=='0'){
+                alert("No tickets booked")
+            }
             setBookings(resp.data);
         })
         .catch((err)=>console.log(err));

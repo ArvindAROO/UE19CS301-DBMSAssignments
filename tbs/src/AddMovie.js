@@ -23,7 +23,7 @@ function AddMovie(){
             gender:gender
         }
 
-        axios.post("http://localhost:3000/dashboard/addmovie",user_data)
+        axios.post("http://localhost:8000/dashboard/addmovie",user_data)
         .then((resp)=>{
             if(resp.data==="0"){
                 alert("Adding movie was unsuccessful try again");
