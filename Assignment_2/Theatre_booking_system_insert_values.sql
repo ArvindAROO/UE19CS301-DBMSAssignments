@@ -9,9 +9,9 @@ INSERT into cashier values ('AJNF5Y','Nelson', '7th main, JP nagar');
 
 --Inserting threatres
 
-INSERT into theatre values ('A7VGBD','Banglore cinemas', 'Banglore Cinemas, Banglore');
-INSERT into theatre values ('AHSA8A','Central Movies', 'City Cetral Mall, Banglore');
-INSERT into theatre values ('8UHD7A','Fun Zone', 'Jayanagar, 4th cross');
+INSERT into theatre values ('A7VGBD','Banglore cinemas', 'Banglore Cinemas, Banglore', 60);
+INSERT into theatre values ('AHSA8A','Central Movies', 'City Cetral Mall, Banglore', 100);
+INSERT into theatre values ('8UHD7A','Fun Zone', 'Jayanagar, 4th cross', 150);
 
 --inserting customer values
 INSERT into customer values ('Alex','HNFOSA', 'alex@mymail.com',7267875614);
@@ -71,36 +71,36 @@ INSERT into shows values('07:05', '09:00', 'A0SJ8S', 3, 1, '22/05/2020', 'HSA8H2
 INSERT into shows values('15:20', '18:00', 'ASJ8JA', 4, 4, '01/11/2020', 'SAH7YK', 'A7VGBD');
 
 --tickets
-INSERT into ticket VALUES('YHSA8H', 12, 250, 'AD8JGA', 190, 'IHSH76', 'HNFOSA');
-INSERT into ticket VALUES('HDJSAY', 63, 200, 'HDSAIJ', 160, 'GJ8H6G', 'KIFH76');
-INSERT into ticket VALUES('YAASUQ', 57, 350, '9HSDAU', 315, 'OHJKU8', 'IJD7UJ');
-INSERT into ticket VALUES('AISH61', 52, 400, 'AS98HS', 200, 'IAJD8H', 'IJD7UJ');
-INSERT into ticket VALUES('ASIDH1', 26, 150, 'AD8JGA', 190, 'JS9U7H', 'HNFOSA');
-INSERT into ticket VALUES('SID87H', 85, 200, 'HDSAIJ', 160, 'JSAIDH', 'IHDY79');
-INSERT into ticket VALUES('Y8UED7', 50, 250, '9HSDAU', 225, 'IHSH76', 'HDUKS8');
-INSERT into ticket VALUES('SADJ61', 42, 200, 'HDSAIJ', 160, 'KSIAUJ', 'OFKDU7');
-INSERT into ticket VALUES('ASIU7H', 26, 285, 'AD8JGA', 190, '9IJSAK', 'IJD7UJ');
-INSERT into ticket VALUES('AS8753', 54, 132, 'AS98HS', 76, 'ASJ8JA', 'DUNS87');
+INSERT into ticket VALUES('YHSA8H', 12, 250, 'AD8JGA', 190, 'IHSH76', 'HNFOSA', 'A7VGBD');
+INSERT into ticket VALUES('HDJSAY', 63, 200, 'HDSAIJ', 160, 'GJ8H6G', 'KIFH76', 'AHSA8A');
+INSERT into ticket VALUES('YAASUQ', 57, 350, '9HSDAU', 315, 'OHJKU8', 'IJD7UJ', '8UHD7A');
+INSERT into ticket VALUES('AISH61', 52, 400, 'AS98HS', 200, 'IAJD8H', 'IJD7UJ', '8UHD7A');
+INSERT into ticket VALUES('ASIDH1', 26, 150, 'AD8JGA', 190, 'JS9U7H', 'HNFOSA', 'A7VGBD');
+INSERT into ticket VALUES('SID87H', 85, 200, 'HDSAIJ', 160, 'JSAIDH', 'IHDY79', 'AHSA8A');
+INSERT into ticket VALUES('Y8UED7', 50, 250, '9HSDAU', 225, 'IHSH76', 'HDUKS8', 'A7VGBD');
+INSERT into ticket VALUES('SADJ61', 42, 200, 'HDSAIJ', 160, 'KSIAUJ', 'OFKDU7', 'A7VGBD');
+INSERT into ticket VALUES('ASIU7H', 26, 285, 'AD8JGA', 190, '9IJSAK', 'IJD7UJ', 'AHSA8A');
+INSERT into ticket VALUES('AS8753', 54, 132, 'AS98HS', 76, 'ASJ8JA', 'DUNS87', '8UHD7A');
 
 --sale
-INSERT INTO sale values('JBAGD3', 'AS8753');
-INSERT INTO sale values('A7VGBD', 'ASIDH1');
-INSERT INTO sale values('AJNF5Y', 'SADJ61');
-INSERT INTO sale values('ABJD82', 'YHSA8H');
-INSERT INTO sale values('6HDIA', 'AISH61');
-INSERT INTO sale values('JBAGD3', 'ASIU7H');
-INSERT INTO sale values('8HNFGB', 'Y8UED7');
-INSERT INTO sale values('6HDIA', 'YAASUQ');
-INSERT INTO sale values('A7VGBD', 'HDJSAY');
+INSERT INTO sale values('JBAGD3', 'AS8753', '8UHD7A');
+INSERT INTO sale values('A7VGBD', 'ASIDH1', '8UHD7A');
+INSERT INTO sale values('AJNF5Y', 'SADJ61', 'AHSA8A');
+INSERT INTO sale values('ABJD82', 'YHSA8H', 'A7VGBD');
+INSERT INTO sale values('6HDIA', 'AISH61', '8UHD7A');
+INSERT INTO sale values('JBAGD3', 'ASIU7H', 'AHSA8A');
+INSERT INTO sale values('8HNFGB', 'Y8UED7', '8UHD7A');
+INSERT INTO sale values('6HDIA', 'YAASUQ', 'A7VGBD');
+INSERT INTO sale values('A7VGBD', 'HDJSAY', 'A7VGBD');
 
 --bookings
-INSERT into booking values('02/03/2021','HDUKS8', 'AS8753');
-INSERT into booking values('21/07/2020','HNFOSA', 'ASIDH1');
-INSERT into booking values('27/10/2020','DUJD87', 'SADJ61');
-INSERT into booking values('23/01/2021','KIFH76', 'YHSA8H');
-INSERT into booking values('19/10/2021','OFKDU7', 'AISH61');
-INSERT into booking values('08/05/2020','OJDUJ8', 'ASIU7H');
-INSERT into booking values('15/03/2021','IHDY79', 'Y8UED7');
-INSERT into booking values('09/08/2020','OJJYD6', 'YAASUQ');
-INSERT into booking values('03/04/2021','IJD7UJ', 'HDJSAY');
-INSERT into booking values('20/02/2021','DUNS87', 'SID87H');
+INSERT into booking values('02/03/2021','HDUKS8', 'AS8753', 'A7VGBD');
+INSERT into booking values('21/07/2020','HNFOSA', 'ASIDH1', '8UHD7A');
+INSERT into booking values('27/10/2020','DUJD87', 'SADJ61', 'AHSA8A');
+INSERT into booking values('23/01/2021','KIFH76', 'YHSA8H', 'AHSA8A');
+INSERT into booking values('19/10/2021','OFKDU7', 'AISH61', 'A7VGBD');
+INSERT into booking values('08/05/2020','OJDUJ8', 'ASIU7H', 'A7VGBD');
+INSERT into booking values('15/03/2021','IHDY79', 'Y8UED7', 'AHSA8A');
+INSERT into booking values('09/08/2020','OJJYD6', 'YAASUQ', '8UHD7A');
+INSERT into booking values('03/04/2021','IJD7UJ', 'HDJSAY', 'AHSA8A');
+INSERT into booking values('20/02/2021','DUNS87', 'SID87H', '8UHD7A');
