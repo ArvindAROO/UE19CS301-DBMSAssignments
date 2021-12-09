@@ -11,6 +11,7 @@ CREATE TABLE theatre
   theatre_ID VARCHAR(6) NOT NULL ,
   theatre_name VARCHAR(25) NOT NULL,
   theatre_address VARCHAR(50) NOT NULL,
+  seats_available INT CHECK(seats_available >= 0),
   PRIMARY KEY (theatre_ID)
 );
 
@@ -73,19 +74,23 @@ CREATE TABLE ticket
   final_price INT NOT NULL,
   show_ID VARCHAR(6) NOT NULL,
   cust_ID VARCHAR(6) NOT NULL,
+  theatre_ID VARCHAR(6) NOT NULL,
   PRIMARY KEY (ticket_no),
-  FOREIGN KEY (show_ID) REFERENCES shows(show_ID),
+  FOREIGN KEY (show_ID) REFERENCES shows(show_ID) on update cascade on delete cascade,
   FOREIGN KEY (cust_ID) REFERENCES customer(cust_ID),
-  FOREIGN KEY (offer_ID) REFERENCES offer(offer_ID)
+  FOREIGN KEY (offer_ID) REFERENCES offer(offer_ID) on update cascade on delete cascade,
+  FOREIGN KEY (theatre_ID) REFERENCES theatre(theatre_ID) on update cascade on delete cascade
 );
 
 CREATE TABLE sale
 (
   cashier_ID VARCHAR(6) NOT NULL,
   ticket_no VARCHAR(6) NOT NULL,
-  FOREIGN KEY (cashier_ID) REFERENCES cashier(cashier_ID) on update cascade on delete cascade,
+  theatre_ID VARCHAR(6) NOT NULL,
+  FOREIGN KEY (cashier_ID) REFERENCES cashier(cashier_ID),
   FOREIGN KEY (ticket_no) REFERENCES ticket(ticket_no) on update cascade on delete cascade,
-  PRIMARY KEY (cashier_ID, ticket_no)
+  FOREIGN KEY (theatre_ID) REFERENCES theatre(theatre_ID) on update cascade on delete cascade,
+  PRIMARY KEY (cashier_ID, ticket_no , theatre_id)
 );
 
 CREATE TABLE booking
@@ -93,9 +98,11 @@ CREATE TABLE booking
   booking_date VARCHAR(10) NOT NULL,
   cust_ID VARCHAR(6) NOT NULL,
   ticket_no VARCHAR(6) NOT NULL,
-  FOREIGN KEY (cust_ID) REFERENCES customer(cust_ID) on update cascade on delete cascade,
+  theatre_ID VARCHAR(6) NOT NULL,
+  FOREIGN KEY (cust_ID) REFERENCES customer(cust_ID),
   FOREIGN KEY (ticket_no) REFERENCES ticket(ticket_no) on update cascade on delete cascade,
-  PRIMARY KEY (cust_ID, ticket_no)
+  FOREIGN KEY (theatre_ID) REFERENCES theatre(theatre_ID) on update cascade on delete cascade,
+  PRIMARY KEY (cust_ID, ticket_no,theatre_ID)
 );
 
 

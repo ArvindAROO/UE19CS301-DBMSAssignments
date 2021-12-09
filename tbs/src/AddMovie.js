@@ -29,6 +29,7 @@ function AddMovie(){
                 alert("Adding movie was unsuccessful try again");
             }
             else if(resp.data){
+                console.log("In add movie:"+resp);
                 alert("Movie added successfully");
                 history.push("/dashboard/theatre");
             }

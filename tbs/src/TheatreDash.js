@@ -25,6 +25,8 @@ function TheatreDash(){
             <input type="button" value="Movies Running" onClick={() => getMovieData()}/><br/>
             <ul>
             {isShowMovie && movies.map((data)=>{
+                console.log("movie: "+data.movie_name+" || release date: "+data.release_date+" || screen: "+data.screen_no+" || start time: "+data.start_time+" || end time: "+data.end_time+" || language: "+data.language);
+                console.log(data)
                 return(
                     <li>{"movie: "+data.movie_name+" || release date: "+data.release_date+" || screen: "+data.screen_no+" || start time: "+data.start_time+" || end time: "+data.end_time+" || language: "+data.language}</li>
                 )

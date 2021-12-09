@@ -152,7 +152,7 @@ router.get("/dashboard/booked/:name",async(req,res)=>{
 
         //have to fix this query
         const user=await pool.query("SELECT theatre_name,movie_name,show_date,screen_no,ticket_no,seat_no,final_price FROM movie NATURAL JOIN (theatre NATURAL JOIN (SELECT * FROM shows NATURAL JOIN (SELECT * FROM customer NATURAL JOIN ticket) AS Q) AS S) as E WHERE cust_name=$1;",[name]);
-        console.log(user.rows[0]);
+        console.log(user.rows.length);
         if(user.rows.length===0){
             res.send("0");
         }
@@ -170,8 +170,7 @@ router.get("/dashboard/moviesRun/:theatre",async(req,res)=>{
     try{
         const {theatre}=req.params;
         console.log(theatre);
-        const result=await pool.query("SELECT movie_name,Q.release_date,language,start_time,end_time,screen_no from theatre natural join (select * from movie natural join shows) as Q where theatre_name=$1;",[theatre]);
-        console.log(result.rows[0]);
+        const result=await pool.query("SELECT movie_name,Q.release_date,language,start_time,end_time,screen_no from theatre natural join (select * from movie natural join shows) as Q where theatre_name='"+theatre+"'");
         if(result.rows.length===0){
             res.send('0');
         }
@@ -195,6 +194,7 @@ router.post("/dashboard/addmovie",async(req,res)=>{
         [actor,age,gender,id]);
         
         console.log(result.rows[0])
+
         console.log("in add movie")
         
         if(result.rows.length===0){
