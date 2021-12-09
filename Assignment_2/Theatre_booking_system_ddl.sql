@@ -77,7 +77,7 @@ CREATE TABLE ticket
   ticket_no VARCHAR(6) NOT NULL ,
   seat_no INT NOT NULL,
   price INT NOT NULL,
-  offer_ID VARCHAR(6) NOT NULL,
+  offer_ID VARCHAR(6),
   final_price INT NOT NULL,
   show_ID VARCHAR(6) NOT NULL,
   cust_ID VARCHAR(6) NOT NULL,
