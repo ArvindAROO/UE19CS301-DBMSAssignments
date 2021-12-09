@@ -39,7 +39,7 @@ function UserDash(){
             <ul>
             {isShowBooking && bookings.map((data)=>{
                 return(
-                    <li>{"movie: "+data.movie_name+" || "+"theatre: "+data.theatre_name+" || " + "date: "+data.show_date+" || "+ "screen: "+data.screen_no+" || "+ "seat_no: "+data.seat_no+" || "+ "price: "+data.final_price+" || "}</li>
+                    <li>{"movie: "+data.movie_name+" || "+ "screen: "+data.screen_no+" || "+ "seat_no: "+data.seat_no+" || "+ "price: "+data.final_price+" || "}</li>
                 )
             })}
             </ul>

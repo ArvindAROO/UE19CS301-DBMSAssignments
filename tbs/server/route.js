@@ -151,7 +151,7 @@ router.get("/dashboard/booked/:name",async(req,res)=>{
         const {name}=req.params;
 
         //have to fix this query
-        const user=await pool.query("SELECT theatre_name,movie_name,show_date,screen_no,ticket_no,seat_no,final_price FROM movie NATURAL JOIN (theatre NATURAL JOIN (SELECT * FROM shows NATURAL JOIN (SELECT * FROM customer NATURAL JOIN ticket) AS Q) AS S) as E WHERE cust_name=$1;",[name]);
+        const user=await pool.query("select movie_name,screen_no,ticket_no,seat_no,final_price from movie join (SELECT * from shows inner join (select * FROM customer NATURAL JOIN ticket) as Q on Q.show_id=shows.show_id) as E on E.movie_id=movie.movie_id where cust_name=$1;",[name]);
         console.log(user.rows.length);
         if(user.rows.length===0){
             res.send("0");

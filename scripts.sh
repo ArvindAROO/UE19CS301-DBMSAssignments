@@ -10,6 +10,3 @@ psql -U postgres -f "complexQueries.sql"
 psql -U postgres -f "views.sql"
 
 
-cd ../tbs/server
-npm start
-nodemon index.js
