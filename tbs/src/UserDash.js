@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 function UserDash(){
     const [bookings, setBookings] = useState(['none']);
@@ -30,7 +31,6 @@ function UserDash(){
         .catch((err)=>console.log(err));
     }
 
-            
     return(
         <div>
             <h1>User Dashboard</h1><br/>
@@ -51,6 +51,7 @@ function UserDash(){
                 )
             })}
             </ul>
+            <Link to="/bookticket"><input type="button" value="Book Tickets"/></Link><br/>
         </div>
     )
 }

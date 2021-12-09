@@ -15,6 +15,8 @@ import TheatreDash from "./TheatreDash";
 import AddMovie from "./AddMovie";
 import AddShow from "./AddShow";
 
+import BookTicket from "./BookTicket";
+
 class App extends React.Component {
   render() {
     return (
@@ -24,6 +26,7 @@ class App extends React.Component {
         <Route path="/user" component={User} />
         <Route path="/signup/user" component={SignUser} />
         <Route path='/dashboard/user' component={UserDash}/>
+        <Route path="/bookticket" component={BookTicket}/>
 
         {/* <Route path="/cashier" component={Cashier} />
         <Route path="/signup/cashier" component={User} /> */}

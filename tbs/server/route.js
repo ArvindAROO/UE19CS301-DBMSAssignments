@@ -35,18 +35,28 @@ router.post("/user/booktickets",async(req,res)=>{
         //INSERT into ticket VALUES('YHSA8H', 12, 250, 'AD8JGA', 190, 'IHSH76', 'HNFOSA', 'A7VGBD');
         let id=Math.random().toString(36).replace('0.', '').substr(0, 6).toUpperCase();
         let seat_no=Math.floor(Math.random() * (100 - 1) + 1);
-        const {customer_name, movie_name}=req.body;
-        const cust_id = await pool.query("SELECT cust_id from customer where cust_name=($1)",[customer_name]);
-        const showAndTheatreID = await pool.query("select show_ID,theatre_ID from shows where movie_id = (SELECT movie_id from movie where movie_name=($1))",[movie_name]);
 
+        const {customer_name, movie_name , offer_id}=req.body;
+        console.log(customer_name, movie_name, offer_id);
+        const cust_id = await pool.query("SELECT cust_id from customer where cust_name=($1)",[customer_name]);
+        console.log(cust_id.rows[0].cust_id);
+        const show_id = await pool.query("select show_ID from shows where movie_id = (SELECT movie_id from movie where movie_name=($1))",[movie_name]);
+        console.log(show_id.rows[0].show_id);
+        const theatre_id = await pool.query("select theatre_id from shows where movie_id = (SELECT movie_id from movie where movie_name=($1))",[movie_name]);
+        console.log(theatre_id.rows[0].theatre_id);
+        const discount = await pool.query("select discount from offer where offer_id = ($1)",[offer_id]);
+        console.log(discount.rows[0].discount);
+        var final_price =200-(discount.rows[0].discount/100)*200;
+        
+        console.log(id ,seat_no,200,offer_id,final_price,show_id.rows[0].show_id,theatre_id.rows[0].theatre_id,cust_id.rows[0].cust_id);
         // inserting into ticket table
-        const result= await pool.query("insert into ticket values($1,$2,$3,$4,$5,$6,$7, $8)",
-        [id, seat_no, 200, NaN, 200, showAndTheatreID.rows[0],cust_id.rows[0], showAndTheatreID[0]]);
+        const result= await pool.query("insert into ticket(ticket_no, seat_no, price, offer_id, final_price, show_id, cust_id, theatre_id ) values ($1,$2,$3,$4,$5,$6,$7,$8) returning *",
+        [id, seat_no, 200, offer_id, final_price, show_id.rows[0].show_id, cust_id.rows[0].cust_id, theatre_id.rows[0].theatre_id]);
 
         //reducing count from theatre table
-        const reduceCount= await pool.query("update theatre set seats_available=seats_available-1 where theatre_id=($1)",[showAndTheatreID.rows[1]]);
+        const reduceCount= await pool.query("update theatre set seats_available=seats_available-1 where theatre_id=($1)",[theatre_id.rows[0].theatre_id]);
         
-        console.log("here >>> " + [id, seat_no, 200, NaN, 200, showAndTheatreID.rows[0],cust_id.rows[0], showAndTheatreID[0]].join(','));
+        console.log("here >>> " + [id, seat_no, 200, NaN, 200, show_id.rows[0].show_id, cust_id.rows[0].cust_id, theatre_id.rows[0].theatre_id].join(','));
         if(result.rows.length===0){
             console.log("Booking failed");
             res.send('0');
