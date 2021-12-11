@@ -7,9 +7,11 @@
 
 --select all customer whose price was more than $100 after applying offer
 select * from customer where cust_id in (select cust_ID from ticket where ticket.final_price < ticket.price);
+explain select * from customer where cust_id in (select cust_ID from ticket where ticket.final_price < ticket.price);
 
 -- select all customer whose price was less than $100
 select * from customer where cust_id=((select cust_id from customer) intersect (select cust_id from ticket where final_price<100));
+explain select * from customer where cust_id=((select cust_id from customer) intersect (select cust_id from ticket where final_price<100));
 
 -- Customer queries:
 -- select customer who have availed 10% off of their ticket
